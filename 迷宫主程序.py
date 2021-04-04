@@ -1,9 +1,3 @@
-'''
-    作业说明
-        请补全?处缺失的代码(可参考3.py对应注释的代码)
-
-        需要录制视频，尝试讲解过程，最后别忘了朗读本节课学到的词汇哦（中英文各2遍）~
-'''
 #导入模块
 import pygame
 import mazeData
@@ -26,14 +20,15 @@ pygame.display.set_icon(surface)
 #初始化变量
 x = 30
 y = 30
-long = 360
-dead_y2 = 260
-dead_y1 = 480
-dead_x = 0
+long = 0
+dead_y1,dead_y2 = random.randint(500,1000),random.randint(300,600)
+dead_x1,dead_x2 = random.randint(500,1000),random.randint(500,1000)
+guess_y1,guess_y2 = random.randint(500,1000),random.randint(300,600)
+guess_x1,guess_x2 = random.randint(500,1000),random.randint(500,1000)
 brave = 1
 brave_time = -100000
 step = 0
-time = 30000
+time = 20000
 dead_time = 0
 
 # 生成迷宫地图
@@ -85,7 +80,7 @@ while True:
             # 判断【事件按键】是不是【左移键】
             elif event.key == pygame.K_LEFT:
                 color = screen.get_at([x - 30,y])
-                if brave == 0:
+                if color[0] == 255 and color[1] == 255 and color[2] == 255:
                     x = x - 30
                     step += 1
                 elif brave == 1:
@@ -129,13 +124,12 @@ while True:
         long += random.randint(1,4)
     else:
         long = 0
-        dead_y1 = random.randint(500,1000)
-        dead_y2 = random.randint(500,1000)
-        
+        dead_y1,dead_y2 = random.randint(500,1000),random.randint(500,1000)
+        dead_x1,dead_x2 = random.randint(500,1000),random.randint(500,1000)
     pygame.draw.rect(screen, [254, 0, 0], [0, dead_y1, long, 50])
     pygame.draw.rect(screen, [254, 0, 0], [0, dead_y2, long, 50])
-    pygame.draw.rect(screen, [254, 0, 0], [dead_y2, 0, 50, long])
-    pygame.draw.rect(screen, [254, 0, 0], [dead_y1, 0, 50, long])
+    pygame.draw.rect(screen, [254, 0, 0], [dead_x2, 0, 50, long])
+    pygame.draw.rect(screen, [254, 0, 0], [dead_x1, 0, 50, long])
 
     # 绘制方块
     if brave == 0:
@@ -211,7 +205,7 @@ while True:
         y = 30
         brave = 0
         step = 0
-        time = 12000
+        time = 20000
         maze = mazeData.Maze()
     if time == 0:
         box.msgbox('你已死亡\n原因:超时未通关')
