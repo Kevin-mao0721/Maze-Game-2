@@ -17,7 +17,7 @@ class Maze:
     # height：迷宫中纵向路的数量
     def __init__(self):
         # 路的大小
-        self.size = [20, 11]   #原来   self.size = [12, 12]
+        self.size = [19, 11]   #原来   self.size = [12, 12]
         # 整个迷宫的大小为：（2 * width + 1, 2 * height + 1），迷宫包括路和墙
         # 使用二维数组表示迷宫，0表示墙， 1表示路
         # 首先全部定义为墙
