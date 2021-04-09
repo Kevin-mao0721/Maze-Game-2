@@ -24,7 +24,7 @@ long = 0
 dead_y1,dead_y2 = random.choice(range(300,600,30)),random.choice(range(300,600,30))
 dead_x1,dead_x2 = random.choice(range(300,1170,30)),random.choice(range(300,1170,30))
 guess_y1,guess_y2 = random.choice(range(300,600,30)),random.choice(range(300,600,30))
-guess_x1,guess_x2 = random.choice(range(300,1170,30)),random.choice(range(300,1170,30))
+guess_x1,guess_x2 = random.choice(range(300,900,30)),random.choice(range(300,900,30))
 brave = 1
 brave_time = -100000
 step = 0
@@ -44,7 +44,7 @@ def set_dead():
 	dead_y1,dead_y2 = guess_y1,guess_y2
 	dead_x1,dead_x2 = guess_x1,guess_x2
 	guess_y1,guess_y2 = random.choice(range(300,600,30)),random.choice(range(300,600,30))
-	guess_x1,guess_x2 = random.choice(range(300,1200,30)),random.choice(range(300,1200,30))
+	guess_x1,guess_x2 = random.choice(range(300,900,30)),random.choice(range(300,900,30))
 	
 
 #主循环
@@ -183,7 +183,7 @@ while True:
 	
 	#更改岩浆河位置
 	if not long > 1290:
-		long += 1
+		long += 3
 	else:
 		long = 0
 		
@@ -193,10 +193,10 @@ while True:
 	z = 30
 		
 	# 预测岩浆河
-	pygame.draw.rect(screen, [253, 180, 180], [0, guess_y1, 1330, z])
-	pygame.draw.rect(screen, [253, 180, 180], [0, guess_y2, 1330, z])
-	pygame.draw.rect(screen, [253, 180, 180], [guess_x2, 0, z, 690])
-	pygame.draw.rect(screen, [253, 180, 180], [guess_x1, 0, z, 690])
+	pygame.draw.rect(screen, [253, 180, 180], [0, guess_y1, 30, z])
+	pygame.draw.rect(screen, [253, 180, 180], [0, guess_y2, 30, z])
+	pygame.draw.rect(screen, [253, 180, 180], [guess_x2, 0, z, 30])
+	pygame.draw.rect(screen, [253, 180, 180], [guess_x1, 0, z, 30])
 	
 	
 	
