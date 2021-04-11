@@ -1,1 +1,4 @@
 image/
+.idea/
+__pycache__/
+venv/
