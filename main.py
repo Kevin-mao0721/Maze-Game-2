@@ -6,7 +6,7 @@ import ybc_box as box
 import sys
 
 f = open('best_step.txt', 'r')
-best_step = f.read()
+best_step = f.readlines()
 f.close()
 
 # 初始化pygame并更改名字
@@ -32,17 +32,18 @@ guess_x1, guess_x2 = random.choice(range(300, 900, 30)), random.choice(range(300
 brave = 1
 brave_time = -100000
 step = 0
-time = 20000
+time = 70000
 dead_time = 0
 level = 1
 
-level_set = {1: [1, 30],
-             2: [1.5, 30],
-             3: [2, 15],
-             4: [2.5, 15],
-             5: [3.5, 15],
-             6: [4.5, 10],
-             7: [6, 10]
+
+level_set = {1: [1],
+             2: [1.5],
+             3: [2],
+             4: [2.5],
+             5: [3.5],
+             6: [4.5],
+             7: [6]
              }
 
 # 生成迷宫地图
@@ -56,14 +57,16 @@ def set_dead():
     global dead_y1, dead_y2, dead_x1, dead_x2, guess_y1, guess_y2, guess_x1, guess_x2
     dead_y1, dead_y2 = guess_y1, guess_y2
     dead_x1, dead_x2 = guess_x1, guess_x2
-    guess_y1, guess_y2 = [random.choice(range(300, 600, level_set[level][1])),
-                          random.choice(range(300, 600, level_set[level][1]))]
-    guess_x1, guess_x2 = [random.choice(range(300, 900, level_set[level][1])),
-                          random.choice(range(300, 900, level_set[level][1]))]
+    guess_y1, guess_y2 = [random.choice(range(300, 600, 30)),
+                          random.choice(range(300, 600, 30))]
+    guess_x1, guess_x2 = [random.choice(range(300, 900, 30)),
+                          random.choice(range(300, 900, 30))]
 
 
 # 主循环
 while True:
+    if level > 7:
+        break
     # 使用for循环遍历当前事件列表
     for event in pygame.event.get():
         # 判断【事件类型】是不是【按下键盘事件】
@@ -83,11 +86,12 @@ while True:
                         box.msgbox('你已死亡\n\n原因:触摸岩浆')
                         x = 30
                         y = 30
-                        brave = 0
-                        brave_time = 1
                         dead_time += 1
                         if dead_time % 2 == 0:
                             maze = mazeData.Maze()
+                elif brave == 0 and color[0] != 161:
+                    y = y - 30
+                    step += 1
             # 判断【事件按键】是不是【下移键】
             elif event.key == pygame.K_DOWN:
                 color = screen.get_at([x, y + 30])
@@ -103,11 +107,12 @@ while True:
                         box.msgbox('你已死亡\n\n原因:触摸岩浆')
                         x = 30
                         y = 30
-                        brave = 0
-                        brave_time = 1
                         dead_time += 1
                         if dead_time % 2 == 0:
                             maze = mazeData.Maze()
+                elif brave == 0 and color[0] != 161:
+                    y = y + 30
+                    step += 1
             # 判断【事件按键】是不是【左移键】
             elif event.key == pygame.K_LEFT:
                 color = screen.get_at([x - 30, y])
@@ -123,11 +128,12 @@ while True:
                         box.msgbox('你已死亡\n\n原因:触摸岩浆')
                         x = 30
                         y = 30
-                        brave = 0
-                        brave_time = 1
                         dead_time += 1
                         if dead_time % 2 == 0:
                             maze = mazeData.Maze()
+                elif brave == 0 and color[0] != 161:
+                    x = x - 30
+                    step += 1
             # 判断【事件按键】是不是【右移键】
             elif event.key == pygame.K_RIGHT:
                 color = screen.get_at([x + 30, y])
@@ -143,22 +149,24 @@ while True:
                         box.msgbox('你已死亡\n\n原因:触摸岩浆')
                         x = 30
                         y = 30
-                        brave = 0
-                        brave_time = 1
                         dead_time += 1
                         if dead_time % 2 == 0:
                             maze = mazeData.Maze()
+                elif brave == 0 and color[0] != 161:
+                    x = x + 30
+                    step += 1
+
         if event.type == pygame.QUIT:
             sys.exit()
 
     # 不动时检测岩浆触碰
     try:
-        color1 = screen.get_at([x, y])
+        color1 = screen.get_at([x+10, y])
     except IndexError:
         color1 = [None, None, None]
 
     try:
-        color2 = screen.get_at([x, y])
+        color2 = screen.get_at([x + 20, y])
     except IndexError:
         color2 = [None, None, None]
 
@@ -180,8 +188,6 @@ while True:
             box.msgbox('你已死亡\n\n原因:触摸岩浆')
             x = 30
             y = 30
-            brave = 0
-            brave_time = 1
             dead_time += 1
             if dead_time % 2 == 0:
                 maze = mazeData.Maze()
@@ -233,41 +239,12 @@ while True:
     screen.blit(words, (1157, 60))
 
     # 绘制最高纪录
-    words = text.render("Best" + str(), True, (230, 230, 230))
-    screen.blit(words, (1157, 60))
+    words = text.render(str(best_step[0]), True, (230, 230, 230))
+    screen.blit(words, (1157, 180))
 
-    # 检擦触碰岩浆
-    # ~ try:
-    # ~ color1 = screen.get_at([x - 1,y - 1])
-    # ~ except IndexError:
-    # ~ color1 = [None]
-
-    # ~ try:
-    # ~ color2 = screen.get_at([x + 28,y + 28])
-    # ~ except IndexError:
-    # ~ color2 = [None]
-
-    # ~ try:
-    # ~ color3 = screen.get_at([x - 1,y + 28])
-    # ~ except IndexError:
-    # ~ color3 = [None]
-
-    # ~ try:
-    # ~ color4 = screen.get_at([x + 28,y - 1])
-    # ~ except IndexError:
-    # ~ color4 = [None]
-
-    # ~ if color1[0]==254 or color2[0]==254 or color3[0]==254 or color4[0]==254:
-    # ~ if brave == 1:
-    # ~ box.msgbox('你已死亡\n\n原因:触摸岩浆')
-    # ~ pygame.display.flip()
-    # ~ x = 30
-    # ~ y = 30
-    # ~ brave = 0
-    # ~ brave_time = 1
-    # ~ dead_time += 1
-    # ~ if dead_time % 2 == 0:
-    # ~ maze = mazeData.Maze()
+    # 绘制最高纪录
+    words = text.render(str(best_step[1]), True, (230, 230, 230))
+    screen.blit(words, (1157, 225))
 
     # 无敌时间计时⏲
     if brave_time == 500:
@@ -278,27 +255,43 @@ while True:
 
     # 检查是否到达终点
     if x == 1140 and y == 630:
-        if step < int(best_step):
-            box.msgbox('恭喜你突破了最高纪录' + '\n你的记录:' + str(step) + '\n最高纪录:' + str(best_step))
+        if int(best_step[1]) == 7:
+            box.msgbox('恭喜你突破了最高纪录')
             f = open('best_step.txt', 'w')
-            f.write(str(step))
+            f.write(str(step) + '\n7.1')
             f.close()
-            brave_time = -900
-        elif step > int(best_step):
-            box.msgbox('恭喜你用了' + str(step) + '步来通关\n距离最高纪录还差' + str(step - int(best_step)))
-            brave_time = -90
-        elif step == int(best_step):
-            box.msgbox('恭喜你用了' + str(step) + '\n你再少走一步就可以超过最高记录了')
-            brave_time = -450
-        # 初始化(过关给无敌时间)
+        elif level == 7:
+            if step < int(best_step[0]):
+                box.msgbox('恭喜你突破了最高纪录' + '\n你的记录:' + str(step) + '\n最高纪录:' + str(best_step[0]))
+                f = open('best_step.txt', 'w')
+                f.write(str(step) + '\n7.1')
+                f.close()
+            elif step > int(best_step[0]):
+                box.msgbox('恭喜你用了' + str(step) + '步来通关\n距离最高纪录还差' + str(step - int(best_step[0])))
+            elif step == int(best_step[0]):
+                box.msgbox('恭喜你用了' + str(step) + '\n你再少走一步就可以超过最高记录了')
+        else:
+            box.msgbox('下一关')
+            level += 1
+        # 初始化
         x = 30
         y = 30
-        brave = 0
-        step = 0
-        time = 20000
         maze = mazeData.Maze()
     if time == 0:
         box.msgbox('你已死亡\n原因:超时未通关')
+        if int(best_step[1]) < level:
+            box.msgbox('恭喜你突破了最高纪录的等级')
+            f = open('best_step.txt', 'w')
+            f.write(str(step) + '\n' + str(level))
+            f.close()
+        elif int(best_step[1]) == level:
+            if step > int(best_step[0]):
+                box.msgbox('恭喜你突破了最高纪录的步数')
+                f = open('best_step.txt', 'w')
+                f.write(str(step) + '\n' + str(level))
+                f.close()
+        else:
+            box.msgbox('很抱歉，您没有突破记录')
         sys.exit()
 
     # 更新窗口
