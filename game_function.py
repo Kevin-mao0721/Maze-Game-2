@@ -1,0 +1,65 @@
+def check_yjh(x, y, screen):
+    # 不动时检测岩浆触碰
+    try:
+        color1 = screen.get_at([x + 10, y])
+    except IndexError:
+        color1 = [None, None, None]
+
+    try:
+        color2 = screen.get_at([x + 20, y])
+    except IndexError:
+        color2 = [None, None, None]
+
+    try:
+        color3 = screen.get_at([x + 29, y])
+    except IndexError:
+        color3 = [None, None, None]
+
+    try:
+        color4 = screen.get_at([x, y + 29])
+    except IndexError:
+        color4 = [None, None, None]
+
+    return color1, color2, color3, color4
+
+
+def set_dead(dead_y1, dead_y2, dead_x1, dead_x2, guess_y1, guess_y2, guess_x1, guess_x2):
+    import random
+
+    dead_y1, dead_y2 = guess_y1, guess_y2
+    dead_x1, dead_x2 = guess_x1, guess_x2
+    guess_y1, guess_y2 = [random.choice(range(300, 600, 30)),
+                          random.choice(range(300, 600, 30))]
+    guess_x1, guess_x2 = [random.choice(range(300, 900, 30)),
+                          random.choice(range(300, 900, 30))]
+
+    return dead_y1, dead_y2, dead_x1, dead_x2, guess_y1, guess_y2, guess_x1, guess_x2
+
+
+def dead_action(sets, player):
+    import pygame, mazeData
+    import ybc_box as box
+
+    box.msgbox('你已死亡\n\n原因:触摸岩浆')
+    player.x = 30
+    player.y = 30
+    sets.dead_time += 1
+    if sets.dead_time % 2 == 0:
+        sets.reset_maze()
+
+
+def check_win_n(sets):
+    box.msgbox('你已死亡\n原因:超时未通关')
+    if int(sets.best_step_n[1]) < sets.level:
+        box.msgbox('恭喜你突破了最高纪录的等级')
+        f = open('best_step_n.txt', 'w')
+        f.write(str(sets.step) + '\n' + str(sets.level))
+        f.close()
+    elif int(sets.best_step_n[1]) == sets.level:
+        if sets.step > int(sets.best_step_n[0]):
+            box.msgbox('恭喜你突破了最高纪录的步数')
+            f = open('best_step_n.txt', 'w')
+            f.write(str(sets.step) + '\n' + str(sets.level))
+            f.close()
+    else:
+        box.msgbox('很抱歉，您没有突破记录')
