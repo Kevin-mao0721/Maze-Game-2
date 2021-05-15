@@ -14,18 +14,13 @@ class Setting():
         self.best_step_n = f.readlines()
         f.close()
 
+        num = len(self.best_step_n[0]) - 1
+        self.best_step_n[0] = self.best_step_n[0][:num]
+
         self.maze = mazeData.Maze()
 
         self.text = pygame.font.SysFont("C:/Windows/Fonts/STZHONGS.TTF", 60)
 
-        self.level_set = {1: [1],
-                          2: [1.5],
-                          3: [2],
-                          4: [2.5],
-                          5: [3.5],
-                          6: [4.5],
-                          7: [6]
-                          }
         self.brave = 1
         self.brave_time = -100000
         self.step = 0
@@ -35,3 +30,10 @@ class Setting():
 
     def reset_maze(self):
         self.maze = mazeData.Maze()
+
+    def reset_all(self):
+        self.reset_maze()
+        self.step = 0
+        self.time = 70000
+        self.dead_time = 0
+        self.level = 1

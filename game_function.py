@@ -23,21 +23,7 @@ def check_yjh(x, y, screen):
     return color1, color2, color3, color4
 
 
-def set_dead(dead_y1, dead_y2, dead_x1, dead_x2, guess_y1, guess_y2, guess_x1, guess_x2):
-    import random
-
-    dead_y1, dead_y2 = guess_y1, guess_y2
-    dead_x1, dead_x2 = guess_x1, guess_x2
-    guess_y1, guess_y2 = [random.choice(range(300, 600, 30)),
-                          random.choice(range(300, 600, 30))]
-    guess_x1, guess_x2 = [random.choice(range(300, 900, 30)),
-                          random.choice(range(300, 900, 30))]
-
-    return dead_y1, dead_y2, dead_x1, dead_x2, guess_y1, guess_y2, guess_x1, guess_x2
-
-
 def dead_action(sets, player):
-    import pygame, mazeData
     import ybc_box as box
 
     box.msgbox('你已死亡\n\n原因:触摸岩浆')
@@ -63,3 +49,55 @@ def check_win_n(sets):
             f.close()
     else:
         box.msgbox('很抱歉，您没有突破记录')
+
+
+def up_check(sets, player):
+    color = sets.screen.get_at([player.x, player.y - 30])
+    if color[0] == 255 or color[0] == 253:
+        player.y -= 30
+        sets.step += 1
+    elif sets.brave == 1:
+        if color[0] == 254:
+            dead_action(sets, player)
+        elif sets.brave == 0 and color[0] != 161:
+            player.y = player.y - 30
+            sets.step += 1
+
+
+def check_down(sets, player):
+    color = sets.screen.get_at([player.x, player.y + 30])
+    if color[0] == 255 or color[0] == 253:
+        player.y = player.y + 30
+        sets.step += 1
+    elif sets.brave == 1:
+        if color[0] == 254:
+            gf.dead_action(sets, player)
+    elif sets.brave == 0 and color[0] != 161:
+        player.y += 30
+        sets.step += 1
+
+
+def check_right(sets, player):
+    color = sets.screen.get_at([player.x + 30, player.y])
+    if color[0] == 255 or color[0] == 253:
+        player.x = player.x + 30
+        sets.step += 1
+    elif sets.brave == 1:
+        if color[0] == 254:
+            gf.dead_action(sets, player)
+    elif sets.brave == 0 and color[0] != 161:
+        player.x + 30
+        sets.step += 1
+
+
+def check_left(sets, player):
+    color = sets.screen.get_at([player.x - 30, player.y])
+    if color[0] == 255 or color[0] == 253:
+        player.x -= 30
+        sets.step += 1
+    elif sets.brave == 1:
+        if color[0] == 254:
+            gf.dead_action(sets, player)
+    elif sets.brave == 0 and color[0] != 161:
+        player.x - 30
+        sets.step += 1
