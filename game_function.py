@@ -1,3 +1,6 @@
+import ybc_box as box
+
+
 def check_yjh(x, y, screen):
     # 不动时检测岩浆触碰
     try:
@@ -24,8 +27,6 @@ def check_yjh(x, y, screen):
 
 
 def dead_action(sets, player):
-    import ybc_box as box
-
     box.msgbox('你已死亡\n\n原因:触摸岩浆')
     player.x = 30
     player.y = 30
@@ -35,18 +36,26 @@ def dead_action(sets, player):
 
 
 def check_win_n(sets):
-    box.msgbox('你已死亡\n原因:超时未通关')
-    if int(sets.best_step_n[1]) < sets.level:
+    box.msgbox('你已死亡')
+    if int(float(sets.best_step_n[1])) < sets.level:
         box.msgbox('恭喜你突破了最高纪录的等级')
-        f = open('best_step_n.txt', 'w')
+        if sets.xh == '正常':
+            f = open('best_step_n.txt', 'w')
+        else:
+            f = open('best_step.txt', 'w')
         f.write(str(sets.step) + '\n' + str(sets.level))
         f.close()
-    elif int(sets.best_step_n[1]) == sets.level:
-        if sets.step > int(sets.best_step_n[0]):
+    elif int(float(sets.best_step_n[1])) == sets.level:
+        if sets.step < int(sets.best_step_n[0]):
             box.msgbox('恭喜你突破了最高纪录的步数')
-            f = open('best_step_n.txt', 'w')
+            if sets.xh == '正常':
+                f = open('best_step_n.txt', 'w')
+            else:
+                f = open('best_step.txt', 'w')
             f.write(str(sets.step) + '\n' + str(sets.level))
             f.close()
+        else:
+            box.msgbox('很抱歉，您没有突破记录')
     else:
         box.msgbox('很抱歉，您没有突破记录')
 
@@ -71,7 +80,7 @@ def check_down(sets, player):
         sets.step += 1
     elif sets.brave == 1:
         if color[0] == 254:
-            gf.dead_action(sets, player)
+            dead_action(sets, player)
     elif sets.brave == 0 and color[0] != 161:
         player.y += 30
         sets.step += 1
@@ -99,5 +108,5 @@ def check_left(sets, player):
         if color[0] == 254:
             gf.dead_action(sets, player)
     elif sets.brave == 0 and color[0] != 161:
-        player.x - 30
+        player.x -= 30
         sets.step += 1

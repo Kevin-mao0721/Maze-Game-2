@@ -16,13 +16,13 @@ dead = Dead()
 # 初始化pygame并更改名字
 # pygame.init()
 
-xh = box.buttonbox('请选择模式', ['正常', '无尽', '调试'])
+
 # 重置岩浆河位置
 dead.f_set_dead(sets)
 # 主循环
 while True:
-    if xh == '正常' or xh == '调试':
-        if sets.level > 7:
+    if sets.xh == '正常' or sets.xh == '调试' or True:
+        if sets.level > 7 and sets.xh == '正常':
             break
         # 使用for循环遍历当前事件列表
         for event in pygame.event.get():
@@ -40,18 +40,22 @@ while True:
                 # 判断【事件按键】是不是【右移键】
                 elif event.key == pygame.K_RIGHT:
                     gf.check_right(sets, player)
-                if event.key == pygame.K_s:
-                    if sets.level != 7:
-                        sets.level += 1
-                        player.reset()
-                        dead.f_set_dead(sets)
-                if event.key == pygame.K_w:
-                    if sets.brave == 1:
-                        sets.brave = 0
-                    else:
-                        sets.brave = 1
+                if sets.ds:
+                    if event.key == pygame.K_s:
+                        if sets.level != 7 or sets.xh == '无尽':
+                            if sets.xh == '无尽':
+                                dead.reset_wujin(sets)
+                            sets.level += 1
+                            player.reset()
+                            dead.f_set_dead(sets)
+                    if event.key == pygame.K_w:
+                        if sets.brave == 1:
+                            sets.brave = 0
+                        else:
+                            sets.brave = 1
 
             if event.type == pygame.QUIT:
+                gf.check_win_n(sets)
                 sys.exit()
 
         # 不动时检测岩浆触碰
@@ -102,7 +106,8 @@ while True:
         sets.screen.blit(words, (1157, 60))
 
         # 绘制最高纪录
-        words = sets.text.render(str(sets.best_step_n[0])[:3], True, (230, 230, 230))
+        num = len(sets.best_step_n[0])
+        words = sets.text.render(str(sets.best_step_n[0])[:num], True, (230, 230, 230))
         sets.screen.blit(words, (1157, 180))
 
         # 绘制最高纪录
@@ -118,33 +123,38 @@ while True:
 
         # 检查是否到达终点
         if player.x == 1140 and player.y == 630:
-            # if int(sets.best_step_n[1]) == 7:
-            #     box.msgbox('恭喜你突破了最高纪录')
-            #     f = open('sets.best_step_n.txt', 'w')
-            #     f.write(str(sets.step) + '\n7.1')
-            #     f.close()
-            if sets.level == 7:
-                if sets.step < int(sets.best_step_n[0]):
-                    box.msgbox('恭喜你突破了最高纪录' + '\n你的记录:' + str(sets.step) + '\n最高纪录:' + str(sets.best_step_n[0]))
-                    f = open('best_step_n.txt', 'w')
-                    f.write(str(sets.step) + '\n7.1')
-                    f.close()
-                elif sets.step > int(sets.best_step_n[0]):
-                    box.msgbox('恭喜你用了' + str(sets.step) + '步来通关\n距离最高纪录还差' + str(sets.step - int(sets.best_step_n[0])))
-                elif sets.step == int(sets.best_step_n[0]):
-                    box.msgbox('恭喜你用了' + str(sets.step) + '\n你再少走一步就可以超过最高记录了')
+            if sets.xh == '正常':
+                if sets.level == 7:
+                    if int(float(sets.best_step_n[1])) == 7:
+                        box.msgbox('恭喜你突破了最高纪录')
+                        f = open('best_step_n.txt', 'w')
+                        f.write(str(sets.step) + '\n7.1')
+                        f.close()
+                    elif sets.step < int(sets.best_step_n[0]) and int(float(sets.best_step_n[1])) == 7:
+                        box.msgbox('恭喜你突破了最高纪录' + '\n你的记录:' + str(sets.step) + '\n最高纪录:' + str(sets.best_step_n[0]))
+                        f = open('best_step_n.txt', 'w')
+                        f.write(str(sets.step) + '\n7.1')
+                        f.close()
+                    elif sets.step > int(sets.best_step_n[0]):
+                        box.msgbox(
+                            '恭喜你用了' + str(sets.step) + '步来通关\n距离最高纪录还差' + str(sets.step - int(sets.best_step_n[0])))
+                    elif sets.step == int(sets.best_step_n[0]):
+                        box.msgbox('恭喜你用了' + str(sets.step) + '\n你再少走一步就可以超过最高记录了')
+                    sets.reset_all(sets.xh, sets, dead)
+                else:
+                    box.msgbox('下一关')
+                    sets.level += 1
+                    dead.f_set_dead(sets)
+                player.reset()
             else:
                 box.msgbox('下一关')
                 sets.level += 1
                 dead.f_set_dead(sets)
-            player.reset()
-            sets.reset_all()
+                player.reset()
+
         if sets.time == 0:
             gf.check_win_n(sets)
             sys.exit()
 
         # 更新窗口
         pygame.display.flip()
-    else:
-        print('没开发完成，请等待')
-        exit(0)
