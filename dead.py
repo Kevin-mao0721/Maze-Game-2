@@ -1,5 +1,6 @@
-import pygame
 import random
+
+import pygame
 
 
 class Dead:
@@ -15,7 +16,7 @@ class Dead:
                           6: [4.5, 2],
                           7: [6, 3]
                           }
-        self.level_set_wujin = [1,0]
+        self.level_set_wujin = [1, 1]
 
         self.x_dead_list = []
         self.y_dead_list = []
@@ -83,6 +84,5 @@ class Dead:
 
     def reset_wujin(self, sets):
         self.level_set_wujin = []
-        self.level_set_wujin.append(int(sets.level*random.uniform(0.5,1.25)))
-        self.level_set_wujin.append(int(sets.level/3))
-
+        self.level_set_wujin.append(int(sets.level * random.uniform(0.5, 1.25)) + 1)
+        self.level_set_wujin.append(int(sets.level / 3) + 1)

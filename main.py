@@ -151,6 +151,7 @@ while True:
                 sets.level += 1
                 dead.f_set_dead(sets)
                 player.reset()
+                sets.reset_maze()
 
         if sets.time == 0:
             gf.check_win_n(sets)

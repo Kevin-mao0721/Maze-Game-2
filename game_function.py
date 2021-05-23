@@ -93,7 +93,7 @@ def check_right(sets, player):
         sets.step += 1
     elif sets.brave == 1:
         if color[0] == 254:
-            gf.dead_action(sets, player)
+            dead_action(sets, player)
     elif sets.brave == 0 and color[0] != 161:
         player.x + 30
         sets.step += 1
@@ -106,7 +106,7 @@ def check_left(sets, player):
         sets.step += 1
     elif sets.brave == 1:
         if color[0] == 254:
-            gf.dead_action(sets, player)
+            dead_action(sets, player)
     elif sets.brave == 0 and color[0] != 161:
         player.x -= 30
         sets.step += 1
