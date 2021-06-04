@@ -1,6 +1,7 @@
-import mazeData
 import pygame
 import ybc_box as box
+
+import mazeData
 
 pygame.init()
 
@@ -23,6 +24,8 @@ class Setting:
         self.dead_time = 0
         self.level = 1
         self.code = ''
+
+        box.msgbox('↑↓←→操控\n\n碰到红色块（岩浆）死亡回到起点')
 
         self.xh = box.buttonbox('请选择模式', ['正常', '无尽'])
         if self.xh is None:
@@ -61,3 +64,7 @@ class Setting:
 
         if xh == '无尽':
             dead.reset_wujin(sets)
+
+    def draw_maze(self):
+        self.screen.fill([161, 207, 143])
+        self.maze.draw(self.screen)

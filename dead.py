@@ -79,8 +79,8 @@ class Dead:
     def draw(self, sets, i):
         pygame.draw.rect(sets.screen, [254, 0, 0], [0, self.y_dead_list[i], self.long, 30])
         pygame.draw.rect(sets.screen, [254, 0, 0], [self.x_dead_list[i], 0, 30, self.long])
-        pygame.draw.rect(sets.screen, [253, 180, 180], [0, self.y_guess_list[i], 30, 30])
-        pygame.draw.rect(sets.screen, [253, 180, 180], [self.x_guess_list[i], 0, 30, 30])
+        pygame.draw.rect(sets.screen, [253, 180, 180], [1, self.y_guess_list[i]+1, 29, 29])
+        pygame.draw.rect(sets.screen, [253, 180, 180], [self.x_guess_list[i]+1, 1, 29, 29])
 
     def reset_wujin(self, sets):
         self.level_set_wujin = []

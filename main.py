@@ -59,60 +59,21 @@ while True:
                 sys.exit()
 
         # 不动时检测岩浆触碰
-        color1, color2, color3, color4 = gf.check_yjh(player.x, player.y, sets.screen)
+        gf.check_dead_dmove(player, sets)
 
-        if sets.brave == 1:
-            if color1[0] == 254 \
-                    or color2[0] == 254 \
-                    or color3[0] == 254 \
-                    or color1[0] == 254:
-                box.msgbox('你已死亡\n\n原因:触摸岩浆')
-                player.x = 30
-                player.y = 30
-                sets.dead_time += 1
-                if sets.dead_time % 2 == 0:
-                    sets.reset_maze()
-
-        # 填充背景色
-        sets.screen.fill([161, 207, 143])
-
-        # 绘制迷宫
-        sets.maze.draw(sets.screen)
-
-        # 更改岩浆河位置
-
-        long_dead = 30
-
-        # 预测岩浆河
+        sets.draw_maze()
 
         # 绘制方块
-        if sets.brave == 0:
-            pygame.draw.rect(sets.screen, [0, 0, 0], [player.x + 1, player.y + 1, 28, 28])
-        else:
-            pygame.draw.rect(sets.screen, [237, 112, 129], [player.x + 1, player.y + 1, 28, 28])
+        player.draw(sets)
 
         # 绘制岩浆河
         dead.draw_all(sets)
 
         # 减少时间
         sets.time -= 1
-        # 绘制字体
-        now = str(sets.time / 100)
-        words = sets.text.render(now, True, (230, 230, 230))
-        sets.screen.blit(words, (1150, 20))
 
-        # 绘制等级
-        words = sets.text.render("L." + str(sets.level), True, (230, 230, 230))
-        sets.screen.blit(words, (1157, 60))
-
-        # 绘制最高纪录
-        num = len(sets.best_step_n[0])
-        words = sets.text.render(str(sets.best_step_n[0])[:num], True, (230, 230, 230))
-        sets.screen.blit(words, (1157, 180))
-
-        # 绘制最高纪录
-        words = sets.text.render(str(sets.best_step_n[1]), True, (230, 230, 230))
-        sets.screen.blit(words, (1157, 225))
+        # 绘制所有纪录
+        gf.draw_all(sets)
 
         # 无敌时间计时⏲
         if sets.brave_time == 500:

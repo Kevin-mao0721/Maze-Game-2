@@ -110,3 +110,37 @@ def check_left(sets, player):
     elif sets.brave == 0 and color[0] != 161:
         player.x -= 30
         sets.step += 1
+
+
+def draw_all(sets):
+    now = str(sets.time / 100)
+    words = sets.text.render(now, True, (230, 230, 230))
+    sets.screen.blit(words, (1150, 20))
+
+    words = sets.text.render("L." + str(sets.level), True, (230, 230, 230))
+    sets.screen.blit(words, (1157, 60))
+
+    words = sets.text.render("Best: ", True, (230, 230, 230))
+    sets.screen.blit(words, (1157, 180))
+
+    num = len(sets.best_step_n[0])
+    words = sets.text.render(str(sets.best_step_n[0])[:num], True, (230, 230, 230))
+    sets.screen.blit(words, (1157, 220))
+
+    words = sets.text.render(str(sets.best_step_n[1]), True, (230, 230, 230))
+    sets.screen.blit(words, (1157, 265))
+
+
+def check_dead_dmove(player, sets):
+    color1, color2, color3, color4 = check_yjh(player.x, player.y, sets.screen)
+
+    if sets.brave == 1:
+        if color1[0] == 254 \
+                or color2[0] == 254 \
+                or color3[0] == 254 \
+                or color1[0] == 254:
+            box.msgbox('你已死亡\n\n原因:触摸岩浆')
+            player.reset()
+            sets.dead_time += 1
+            if sets.dead_time % 2 == 0:
+                sets.reset_maze()
