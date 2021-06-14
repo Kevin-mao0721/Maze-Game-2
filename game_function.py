@@ -1,6 +1,7 @@
 import ybc_box as box
 
 
+
 def check_yjh(x, y, screen):
     # 不动时检测岩浆触碰
     try:
@@ -95,7 +96,7 @@ def check_right(sets, player):
         if color[0] == 254:
             dead_action(sets, player)
     elif sets.brave == 0 and color[0] != 161:
-        player.x + 30
+        player.x += 30
         sets.step += 1
 
 
@@ -144,3 +145,18 @@ def check_dead_dmove(player, sets):
             sets.dead_time += 1
             if sets.dead_time % 2 == 0:
                 sets.reset_maze()
+
+
+def tiao_shi(event):
+    if event.key == pygame.K_s:
+        if sets.level != 7 or sets.xh == '无尽':
+            if sets.xh == '无尽':
+                dead.reset_wujin(sets)
+            sets.level += 1
+            player.reset()
+            dead.f_set_dead(sets)
+    if event.key == pygame.K_w:
+        if sets.brave == 1:
+            sets.brave = 0
+        else:
+            sets.brave = 1
