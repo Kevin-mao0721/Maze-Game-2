@@ -8,10 +8,16 @@ import game_function as gf
 from Player import Player
 from Setting import Setting
 from dead import Dead
+from Logger import Logging
 
 sets = Setting()
 player = Player()
 dead = Dead()
+
+log_info = Logging('MazeLog.log', level=logging.INFO)
+log_warning = Logging('MazeLog.log', level=logging.WARNING)
+log_critical = Logging('MazeLog.log', level=logging.CRITICAL)
+log_error = Logging('MazeLog.log', level=logging.ERROR)
 
 while True:
     try:
@@ -108,5 +114,9 @@ while True:
 
                 # 更新窗口
                 pygame.display.flip()
+
+                a = 5/0
     except Exception as e:
-        logger.error('报错信息被抓取，为: ' + str(e))
+        log_error.logger.error('报错信息被抓取，为--- ' + str(e))
+        if sets.ds:
+            box.msgbox('报错信息被抓取，为--- ' + str(e) + '请测试完成后自行查看')

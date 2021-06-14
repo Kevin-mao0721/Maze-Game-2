@@ -1,5 +1,5 @@
 import ybc_box as box
-
+import pygame
 
 
 def check_yjh(x, y, screen):
