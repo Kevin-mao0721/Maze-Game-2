@@ -1,20 +1,19 @@
 # 导入模块
-import logging
 import pygame
 import sys
 import ybc_box as box
+import secret
 
 import game_function as gf
 from Player import Player
 from Setting import Setting
 from dead import Dead
-from Logger import Logging
+from Logger import Logger
 
 sets = Setting()
 player = Player()
 dead = Dead()
-
-
+log = Logger('Logging.log')
 
 while True:
     try:
@@ -83,13 +82,15 @@ while True:
                                 f.write(str(sets.step) + '\n7.1')
                                 f.close()
                             elif sets.step < int(sets.best_step_n[0]) and int(float(sets.best_step_n[1])) == 7:
-                                box.msgbox('恭喜你突破了最高纪录' + '\n你的记录:' + str(sets.step) + '\n最高纪录:' + str(sets.best_step_n[0]))
+                                box.msgbox(
+                                    '恭喜你突破了最高纪录' + '\n你的记录:' + str(sets.step) + '\n最高纪录:' + str(sets.best_step_n[0]))
                                 f = open('best_step_n.txt', 'w')
                                 f.write(str(sets.step) + '\n7.1')
                                 f.close()
                             elif sets.step > int(sets.best_step_n[0]):
                                 box.msgbox(
-                                    '恭喜你用了' + str(sets.step) + '步来通关\n距离最高纪录还差' + str(sets.step - int(sets.best_step_n[0])))
+                                    '恭喜你用了' + str(sets.step) + '步来通关\n距离最高纪录还差' + str(
+                                        sets.step - int(sets.best_step_n[0])))
                             elif sets.step == int(sets.best_step_n[0]):
                                 box.msgbox('恭喜你用了' + str(sets.step) + '\n你再少走一步就可以超过最高记录了')
                             sets.reset_all(sets.xh, sets, dead)
@@ -97,6 +98,7 @@ while True:
                             box.msgbox('下一关')
                             sets.level += 1
                             dead.f_set_dead(sets)
+                            sets.reset_maze()
                         player.reset()
                     else:
                         box.msgbox('下一关')
@@ -113,4 +115,4 @@ while True:
                 pygame.display.flip()
 
     except Exception as e:
-        pass
+        log.error('发现错误，信息为' + str(e))

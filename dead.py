@@ -28,13 +28,13 @@ class Dead:
 
     def f_set_dead(self, sets):
         if sets.xh == '正常':
-            for i in range(self.level_set[sets.level][1]):
+            for _ in range(self.level_set[sets.level][1]):
                 self.y_dead_list.append(random.choice(self.y_dead))
                 self.x_dead_list.append(random.choice(self.x_dead))
                 self.y_guess_list.append(random.choice(self.y_dead))
                 self.x_guess_list.append(random.choice(self.x_dead))
         else:
-            for i in range(self.level_set_wujin[1]):
+            for _ in range(self.level_set_wujin[1]):
                 self.y_dead_list.append(random.choice(self.y_dead))
                 self.x_dead_list.append(random.choice(self.x_dead))
                 self.y_guess_list.append(random.choice(self.y_dead))
@@ -44,11 +44,11 @@ class Dead:
         self.x_guess_list = []
         self.y_guess_list = []
         if sets.xh == '正常':
-            for i in range(self.level_set[sets.level][1]):
+            for _ in range(self.level_set[sets.level][1]):
                 self.y_guess_list.append(random.choice(self.y_dead))
                 self.x_guess_list.append(random.choice(self.x_dead))
         else:
-            for i in range(self.level_set_wujin[1]):
+            for _ in range(self.level_set_wujin[1]):
                 self.y_guess_list.append(random.choice(self.y_dead))
                 self.x_guess_list.append(random.choice(self.x_dead))
 
