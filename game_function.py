@@ -147,7 +147,7 @@ def check_dead_dmove(player, sets):
                 sets.reset_maze()
 
 
-def tiao_shi(event):
+def tiao_shi(event, sets):
     if event.key == pygame.K_s:
         if sets.level != 7 or sets.xh == '无尽':
             if sets.xh == '无尽':
