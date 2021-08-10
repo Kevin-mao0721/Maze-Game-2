@@ -1,4 +1,4 @@
-import pygame, secret
+import pygame
 import ybc_box as box
 
 import mazeData
@@ -23,7 +23,7 @@ class Setting:
         self.time = 70000
         self.dead_time = 0
         self.level = 1
-        self.code = '97707ae8e5a58e4a9575d09ce7f92d26966c7d25c07d68c9359e0a61433150e2e95728bd43efc31be6f4b27c23724fe0996316119e4e6c13efcdd1016a2c36c272361df2d700a33d38f501695054e14da15305d79123b0fbcef53f83b80735850ed'
+        self.code = "asdfghjkl;'"
 
         box.msgbox('↑↓←→操控\n\n碰到红色块（岩浆）死亡回到起点')
 
@@ -34,12 +34,12 @@ class Setting:
 
         if self.ds:
             an = box.passwordbox('请输入调式密码')
-            if secret.secret_question(an) != self.code:
-                box.msgbox('密码错误，无法开启调试')
+            if an == self.code:
+                box.msgbox('密码正确，开启调试')
+                self.ds = True
+            else:
+                box.msgbox('密码错误，无法调试')
                 self.ds = False
-
-        if self.ds is None:
-            self.ds = False
 
         if self.xh == '正常':
             f = open('best_step_n.txt', 'r')

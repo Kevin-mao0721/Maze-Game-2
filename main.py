@@ -2,13 +2,12 @@
 import pygame
 import sys
 import ybc_box as box
-import secret
-
 import game_function as gf
 from Player import Player
 from Setting import Setting
 from dead import Dead
 from Logger import Logger
+
 
 sets = Setting()
 player = Player()
@@ -42,7 +41,13 @@ while True:
                             gf.check_right(sets, player)
                         if sets.ds:
                             if event.key == pygame.K_s:
-                                gf.tiao_shi(event, sets)
+                                gf.tiao_shi(event, sets, dead, player)
+                            if event.key == pygame.K_w:
+                                if not sets.brave:
+                                    sets.brave = True
+                                else:
+                                    sets.brave = False
+
 
                     if event.type == pygame.QUIT:
                         gf.check_win_n(sets)
@@ -103,6 +108,7 @@ while True:
                     else:
                         box.msgbox('下一关')
                         sets.level += 1
+                        sets.time += 50
                         dead.f_set_dead(sets)
                         player.reset()
                         sets.reset_maze()
@@ -115,4 +121,5 @@ while True:
                 pygame.display.flip()
 
     except Exception as e:
+        box.msgbox('发现错误，信息为' + str(e))
         log.error('发现错误，信息为' + str(e))
