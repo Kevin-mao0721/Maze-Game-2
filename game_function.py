@@ -66,67 +66,74 @@ def check_win_n(sets):
 
 
 def up_check(sets, player):
-    try:
-        color = sets.screen.get_at([player.x, player.y - 30])
-        if color[0] == 255 or color[0] == 253:
-            player.y -= 30
-            sets.step += 1
-        elif sets.brave == 1:
-            if color[0] == 254:
-                dead_action(sets, player, '触碰岩浆')
-            elif sets.brave == 0 and color[0] != 161:
-                player.y = player.y - 30
+    for i in range(player.move_time):
+        try:
+            color = sets.screen.get_at([player.x, player.y - 30])
+            if color[0] == 255 or color[0] == 253:
+                player.y -= 30
                 sets.step += 1
-    except IndexError:
-        dead_action(sets, player, '离开地图')
+            elif sets.brave == 1:
+                if color[0] == 254 and i != 0:
+                    dead_action(sets, player, '触碰岩浆')
+                elif sets.brave == 0 and color[0] != 161:
+                    player.y = player.y - 30
+                    sets.step += 1
+        except IndexError:
+            dead_action(sets, player, '离开地图')
 
 
 def check_down(sets, player):
-    try:
-        color = sets.screen.get_at([player.x, player.y + 30])
-        if color[0] == 255 or color[0] == 253:
-            player.y = player.y + 30
-            sets.step += 1
-        elif sets.brave == 1:
-            if color[0] == 254:
-                dead_action(sets, player, '触碰岩浆')
-        elif sets.brave == 0 and color[0] != 161:
-            player.y += 30
-            sets.step += 1
-    except IndexError:
-        dead_action(sets, player, '离开地图')
+    for i in range(player.move_time):
+        try:
+            color = sets.screen.get_at([player.x, player.y + 30])
+            if color[0] == 255 or color[0] == 253:
+                player.y = player.y + 30
+                sets.step += 1
+            elif sets.brave == 1:
+                if color[0] == 254:
+                    if color[0] == 254 and i != 0:
+                        dead_action(sets, player, '触碰岩浆')
+            elif sets.brave == 0 and color[0] != 161:
+                player.y += 30
+                sets.step += 1
+        except IndexError:
+            dead_action(sets, player, '离开地图')
 
 
 def check_right(sets, player):
-    try:
-        color = sets.screen.get_at([player.x + 30, player.y])
-        if color[0] == 255 or color[0] == 253:
-            player.x = player.x + 30
-            sets.step += 1
-        elif sets.brave == 1:
-            if color[0] == 254:
-                dead_action(sets, player, '触碰岩浆')
-        elif sets.brave == 0 and color[0] != 161:
-            player.x += 30
-            sets.step += 1
-    except IndexError:
-        dead_action(sets, player, '离开地图')
+    for i in range(player.move_time):
+        try:
+            color = sets.screen.get_at([player.x + 30, player.y])
+            if color[0] == 255 or color[0] == 253:
+                player.x = player.x + 30
+                sets.step += 1
+            elif sets.brave == 1:
+                if color[0] == 254:
+                    if color[0] == 254 and i != 0:
+                        dead_action(sets, player, '触碰岩浆')
+            elif sets.brave == 0 and color[0] != 161:
+                player.x += 30
+                sets.step += 1
+        except IndexError:
+            dead_action(sets, player, '离开地图')
 
 
 def check_left(sets, player):
-    try:
-        color = sets.screen.get_at([player.x - 30, player.y])
-        if color[0] == 255 or color[0] == 253:
-            player.x -= 30
-            sets.step += 1
-        elif sets.brave == 1:
-            if color[0] == 254:
-                dead_action(sets, player, '触碰岩浆')
-        elif sets.brave == 0 and color[0] != 161:
-            player.x -= 30
-            sets.step += 1
-    except IndexError:
-        dead_action(sets, player, '离开地图')
+    for i in range(player.move_time):
+        try:
+            color = sets.screen.get_at([player.x - 30, player.y])
+            if color[0] == 255 or color[0] == 253:
+                player.x -= 30
+                sets.step += 1
+            elif sets.brave == 1:
+                if color[0] == 254:
+                    if color[0] == 254 and i != 0:
+                        dead_action(sets, player, '触碰岩浆')
+            elif sets.brave == 0 and color[0] != 161:
+                player.x -= 30
+                sets.step += 1
+        except IndexError:
+            dead_action(sets, player, '离开地图')
 
 
 def draw_all(sets):

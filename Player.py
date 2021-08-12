@@ -5,12 +5,12 @@ class Player:
     def __init__(self):
         self.x = 30
         self.y = 30
-        self.skill = None
+        self.move_time = 1
 
     def reset(self):
         self.x = 30
         self.y = 30
-        self.skill = None
+        self.move_time -= 1
 
     def draw(self, sets):
         if sets.brave == 0:

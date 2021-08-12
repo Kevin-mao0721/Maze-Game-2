@@ -100,6 +100,9 @@ while True:
                                 box.msgbox('恭喜你用了' + str(sets.step) + '\n你再少走一步就可以超过最高记录了')
                             sets.reset_all(sets.xh, sets, dead)
                         else:
+                            if sets.maze.treasure_number == 0:
+                                player.move_time = 3
+                                box.msgbox('获得技能：㊙')
                             box.msgbox('下一关')
                             sets.level += 1
                             dead.f_set_dead(sets)
@@ -107,7 +110,7 @@ while True:
                         player.reset()
                     else:
                         box.msgbox('下一关')
-                        sets.level += 1
+                        sets.level += 2
                         sets.time += 50
                         dead.f_set_dead(sets)
                         player.reset()
