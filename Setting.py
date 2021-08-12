@@ -49,8 +49,7 @@ class Setting:
         self.best_step_n = f.readlines()
         f.close()
 
-        num = len(self.best_step_n[0]) - 1
-        self.best_step_n[0] = self.best_step_n[0][:num]
+        self.best_step_n[0] = self.best_step_n[0].strip()
 
     def reset_maze(self):
         self.maze = mazeData.Maze()
@@ -68,3 +67,13 @@ class Setting:
     def draw_maze(self):
         self.screen.fill([161, 207, 143])
         self.maze.draw(self.screen)
+
+    def get_mark(self):
+        if self.xh == '正常':
+            f = open('best_step_n.txt', 'r')
+        else:
+            f = open('best_step.txt', 'r')
+
+        self.best_step_n = f.readlines()
+        self.best_step_n[0] = self.best_step_n[0].strip()
+        f.close()

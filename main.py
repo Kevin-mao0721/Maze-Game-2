@@ -8,14 +8,13 @@ from Setting import Setting
 from dead import Dead
 from Logger import Logger
 
-
 sets = Setting()
 player = Player()
 dead = Dead()
 log = Logger('Logging.log')
 
 while True:
-    try:
+    # try:
         # 重置岩浆河位置
         dead.f_set_dead(sets)
         # 主循环
@@ -47,7 +46,6 @@ while True:
                                     sets.brave = True
                                 else:
                                     sets.brave = False
-
 
                     if event.type == pygame.QUIT:
                         gf.check_win_n(sets)
@@ -81,17 +79,19 @@ while True:
                 if player.x == 1140 and player.y == 630:
                     if sets.xh == '正常':
                         if sets.level == 7:
-                            if int(float(sets.best_step_n[1])) == 7:
+                            if float(sets.best_step_n[1]) <= 7:
                                 box.msgbox('恭喜你突破了最高纪录')
                                 f = open('best_step_n.txt', 'w')
-                                f.write(str(sets.step) + '\n7.1')
+                                f.write(str(sets.step) + '\n8')
                                 f.close()
-                            elif sets.step < int(sets.best_step_n[0]) and int(float(sets.best_step_n[1])) == 7:
+                                sets.get_mark()
+                            elif sets.step < int(sets.best_step_n[0]):
                                 box.msgbox(
                                     '恭喜你突破了最高纪录' + '\n你的记录:' + str(sets.step) + '\n最高纪录:' + str(sets.best_step_n[0]))
                                 f = open('best_step_n.txt', 'w')
-                                f.write(str(sets.step) + '\n7.1')
+                                f.write(str(sets.step) + '\n8')
                                 f.close()
+                                sets.get_mark()
                             elif sets.step > int(sets.best_step_n[0]):
                                 box.msgbox(
                                     '恭喜你用了' + str(sets.step) + '步来通关\n距离最高纪录还差' + str(
@@ -120,6 +120,6 @@ while True:
                 # 更新窗口
                 pygame.display.flip()
 
-    except Exception as e:
-        box.msgbox('发现错误，信息为' + str(e))
-        log.error('发现错误，信息为' + str(e))
+    # except Exception as e:
+    #     box.msgbox('发现错误，信息为' + str(e))
+    #     log.error('发现错误，信息为' + str(e))

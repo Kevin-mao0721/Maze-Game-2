@@ -17,7 +17,7 @@ class Maze:
     # height：迷宫中纵向路的数量
     def __init__(self):
         # 路的大小
-        self.size = [19, 11]   #原来   self.size = [12, 12]
+        self.size = [19, 11]  # 原来   self.size = [12, 12]
         # 整个迷宫的大小为：（2 * width + 1, 2 * height + 1），迷宫包括路和墙
         # 使用二维数组表示迷宫，0表示墙， 1表示路
         # 首先全部定义为墙
@@ -36,8 +36,8 @@ class Maze:
         # 设置迷宫终点
         self.end = [(2 * self.size[0] + 1 - 1) * self.unit[0], (2 * self.size[1] + 1 - 1 - 1) * self.unit[1]]
         # 宝物图片
-        self.treasure = treasure[random.randint(0, 6)]
-
+        self.treasure_number = random.randint(0, 6)
+        self.treasure = treasure[self.treasure_number]
 
     # 开拓迷宫
     def setMap(self):
@@ -103,15 +103,14 @@ class Maze:
                 string = string + str(x) + ' '
             string += '\n'
 
-        print(string)
-
     # 绘制迷宫
     def draw(self, screen):
         # 绘制迷宫的地图
         for row in range(len(self.map)):
             for col in range(len(self.map[row])):
                 if self.map[row][col] == 1:
-                    pygame.draw.rect(screen, [255, 255, 255], [col * self.unit[0], row * self.unit[1], self.unit[0], self.unit[1]])
+                    pygame.draw.rect(screen, [255, 255, 255],
+                                     [col * self.unit[0], row * self.unit[1], self.unit[0], self.unit[1]])
 
         # 绘制终点标识（宝物）
         screen.blit(self.treasure, self.end)
@@ -126,6 +125,7 @@ class Maze:
         # pygame.draw.rect(screen,
         #                  [0, 255, 0],
         #                  [self.end[0] + int(self.unit[0] / 4), self.end[1] + int(self.unit[1] / 5), int(self.unit[0] / 2), int(self.unit[1] / 3)])
+
 
 if __name__ == '__main__':
     maze = Maze()
