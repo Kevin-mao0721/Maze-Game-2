@@ -14,7 +14,7 @@ dead = Dead()
 log = Logger('Logging.log')
 
 while True:
-    # try:
+    try:
         # 重置岩浆河位置
         dead.f_set_dead(sets)
         # 主循环
@@ -120,6 +120,6 @@ while True:
                 # 更新窗口
                 pygame.display.flip()
 
-    # except Exception as e:
-    #     box.msgbox('发现错误，信息为' + str(e))
-    #     log.error('发现错误，信息为' + str(e))
+    except Exception as e:
+        box.msgbox('发现错误，信息为' + str(e))
+        log.error('发现错误，信息为' + str(e))
