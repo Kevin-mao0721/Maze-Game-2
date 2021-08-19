@@ -1,2 +1,14 @@
 [2021-08-12 18:54:20] [ERROR]2021-08-12 18:54:20 - E:\python_project\game3\maze_game\Logger.py[line:31] - ERROR: 发现错误，信息为pixel index out of range
 [2021-08-12 18:56:15] [ERROR]2021-08-12 18:56:15 - E:\python_project\game3\maze_game\Logger.py[line:31] - ERROR: 发现错误，信息为pixel index out of range
+[2021-08-19 21:36:55] [ERROR]2021-08-19 21:36:55 - E:\python_project\game3\maze_game\Logger.py[line:31] - ERROR: 发现错误，信息为reset() missing 1 required positional argument: 'sets'
+[2021-08-19 21:37:00] [ERROR]2021-08-19 21:37:00 - E:\python_project\game3\maze_game\Logger.py[line:31] - ERROR: 发现错误，信息为reset() missing 1 required positional argument: 'sets'
+[2021-08-19 21:37:04] [ERROR]2021-08-19 21:37:04 - E:\python_project\game3\maze_game\Logger.py[line:31] - ERROR: 发现错误，信息为reset() missing 1 required positional argument: 'sets'
+[2021-08-19 21:37:04] [ERROR]2021-08-19 21:37:04 - E:\python_project\game3\maze_game\Logger.py[line:31] - ERROR: 发现错误，信息为reset() missing 1 required positional argument: 'sets'
+[2021-08-19 21:37:05] [ERROR]2021-08-19 21:37:05 - E:\python_project\game3\maze_game\Logger.py[line:31] - ERROR: 发现错误，信息为reset() missing 1 required positional argument: 'sets'
+[2021-08-19 21:37:06] [ERROR]2021-08-19 21:37:06 - E:\python_project\game3\maze_game\Logger.py[line:31] - ERROR: 发现错误，信息为reset() missing 1 required positional argument: 'sets'
+[2021-08-19 21:37:10] [ERROR]2021-08-19 21:37:10 - E:\python_project\game3\maze_game\Logger.py[line:31] - ERROR: 发现错误，信息为reset() missing 1 required positional argument: 'sets'
+[2021-08-19 21:55:14] [ERROR]2021-08-19 21:55:14 - E:\python_project\game3\maze_game\Logger.py[line:31] - ERROR: 发现错误，信息为name 'r' is not defined
+[2021-08-19 21:55:34] [ERROR]2021-08-19 21:55:34 - E:\python_project\game3\maze_game\Logger.py[line:31] - ERROR: 发现错误，信息为name 'r' is not defined
+[2021-08-19 21:55:37] [ERROR]2021-08-19 21:55:37 - E:\python_project\game3\maze_game\Logger.py[line:31] - ERROR: 发现错误，信息为name 'r' is not defined
+[2021-08-19 22:06:26] [ERROR]2021-08-19 22:06:26 - E:\python_project\game3\maze_game\Logger.py[line:31] - ERROR: 发现错误，信息为name 'ime' is not defined
+[2021-08-19 22:06:28] [ERROR]2021-08-19 22:06:28 - E:\python_project\game3\maze_game\Logger.py[line:31] - ERROR: 发现错误，信息为name 'ime' is not defined

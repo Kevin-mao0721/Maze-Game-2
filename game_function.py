@@ -65,8 +65,12 @@ def check_win_n(sets):
         box.msgbox('很遗憾，您没有突破记录')
 
 
-def up_check(sets, player):
-    for i in range(player.move_time):
+def up_check(sets, player, time=None):
+    r = True
+    if not time:
+        time = player.move_time
+        r = False
+    for i in range(time):
         try:
             color = sets.screen.get_at([player.x, player.y - 30])
             if color[0] == 255 or color[0] == 253:
@@ -82,8 +86,13 @@ def up_check(sets, player):
             dead_action(sets, player, '离开地图')
 
 
-def check_down(sets, player):
-    for i in range(player.move_time):
+def check_down(sets, player, time=None):
+    r = True
+    if not time:
+        time = player.move_time
+        print('tc')
+        r = False
+    for i in range(time):
         try:
             color = sets.screen.get_at([player.x, player.y + 30])
             if color[0] == 255 or color[0] == 253:
@@ -92,6 +101,8 @@ def check_down(sets, player):
             elif sets.brave == 1:
                 if color[0] == 254:
                     if color[0] == 254 and i != 0:
+                        if r:
+                            break
                         dead_action(sets, player, '触碰岩浆')
             elif sets.brave == 0 and color[0] != 161:
                 player.y += 30
@@ -100,8 +111,12 @@ def check_down(sets, player):
             dead_action(sets, player, '离开地图')
 
 
-def check_right(sets, player):
-    for i in range(player.move_time):
+def check_right(sets, player, time=None):
+    r = True
+    if not time:
+        time = player.move_time
+        r = False
+    for i in range(time):
         try:
             color = sets.screen.get_at([player.x + 30, player.y])
             if color[0] == 255 or color[0] == 253:
@@ -110,16 +125,24 @@ def check_right(sets, player):
             elif sets.brave == 1:
                 if color[0] == 254:
                     if color[0] == 254 and i != 0:
+                        if r:
+                            break
                         dead_action(sets, player, '触碰岩浆')
             elif sets.brave == 0 and color[0] != 161:
                 player.x += 30
                 sets.step += 1
         except IndexError:
+            if r:
+                break
             dead_action(sets, player, '离开地图')
 
 
-def check_left(sets, player):
-    for i in range(player.move_time):
+def check_left(sets, player, time=None):
+    r = True
+    if not time:
+        time = player.move_time
+        r = False
+    for i in range(time):
         try:
             color = sets.screen.get_at([player.x - 30, player.y])
             if color[0] == 255 or color[0] == 253:
@@ -128,11 +151,15 @@ def check_left(sets, player):
             elif sets.brave == 1:
                 if color[0] == 254:
                     if color[0] == 254 and i != 0:
+                        if r:
+                            break
                         dead_action(sets, player, '触碰岩浆')
             elif sets.brave == 0 and color[0] != 161:
                 player.x -= 30
                 sets.step += 1
         except IndexError:
+            if r:
+                break
             dead_action(sets, player, '离开地图')
 
 
@@ -164,7 +191,7 @@ def check_dead_dmove(player, sets):
                 or color3[0] == 254 \
                 or color1[0] == 254:
             box.msgbox('你已死亡\n\n原因:触摸岩浆')
-            player.reset()
+            player.reset(sets)
             sets.dead_time += 1
             if sets.dead_time % 2 == 0:
                 sets.reset_maze()
@@ -176,10 +203,18 @@ def tiao_shi(event, sets, dead, player):
             if sets.xh == '无尽':
                 dead.reset_wujin(sets)
             sets.level += 1
-            player.reset()
+            player.reset(sets)
             dead.f_set_dead(sets)
     if event.key == pygame.K_w:
         if sets.brave == 1:
             sets.brave = 0
         else:
             sets.brave = 1
+
+
+def pgUp(sets, player):
+    check_down(sets, player, 100)
+
+
+def pgDn(sets, player):
+    check_right(sets, player, 100)

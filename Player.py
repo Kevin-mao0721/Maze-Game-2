@@ -7,10 +7,14 @@ class Player:
         self.y = 30
         self.move_time = 1
 
-    def reset(self):
+    def reset(self, sets):
         self.x = 30
         self.y = 30
         self.move_time -= 1
+        if self.move_time <= 0:
+            self.move_time = 1
+        if not sets.ds:
+            sets.brave = 1
 
     def draw(self, sets):
         if sets.brave == 0:

@@ -46,6 +46,11 @@ while True:
                                     sets.brave = True
                                 else:
                                     sets.brave = False
+                        if player.move_time == 2:
+                            if event.key == pygame.K_PAGEUP:
+                                gf.pgUp(sets, player)
+                            if event.key == pygame.K_PAGEDOWN:
+                                gf.pgDn(sets, player)
 
                     if event.type == pygame.QUIT:
                         gf.check_win_n(sets)
@@ -99,23 +104,27 @@ while True:
                             elif sets.step == int(sets.best_step_n[0]):
                                 box.msgbox('恭喜你用了' + str(sets.step) + '\n你再少走一步就可以超过最高记录了')
                             sets.reset_all(sets.xh, sets, dead)
-                        else:
-                            if sets.maze.treasure_number == 0:
-                                player.move_time = 3
-                                box.msgbox('获得技能：㊙')
-                            box.msgbox('下一关')
+                    if sets.maze.treasure_number == 0:
+                        player.move_time = 3
+                        box.msgbox('获得技能：加速')
+                    elif sets.maze.treasure_number == 2:
+                        sets.brave = 0
+                        box.msgbox('获得技能：天之眷顾')
+                    elif sets.maze.treasure_number == 5:
+                        if sets.level != 6:
+                            sets.level = 6
+                            box.msgbox('获得技能：直到最后一关！')
+                    elif sets.maze.treasure_number == 6:
+                        if sets.level != 6:
                             sets.level += 1
-                            dead.f_set_dead(sets)
-                            sets.reset_maze()
-                        player.reset()
-                    else:
-                        box.msgbox('下一关')
-                        sets.level += 2
+                            box.msgbox('获得技能：过一关！')
+                    box.msgbox('下一关')
+                    sets.level += 1
+                    dead.f_set_dead(sets)
+                    sets.reset_maze()
+                    player.reset(sets)
+                    if sets.xh == '无尽':
                         sets.time += 50
-                        dead.f_set_dead(sets)
-                        player.reset()
-                        sets.reset_maze()
-
                 if sets.time == 0:
                     gf.check_win_n(sets)
                     sys.exit()
