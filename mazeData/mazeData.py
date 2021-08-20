@@ -104,13 +104,14 @@ class Maze:
             string += '\n'
 
     # 绘制迷宫
-    def draw(self, screen):
-        # 绘制迷宫的地图
-        for row in range(len(self.map)):
-            for col in range(len(self.map[row])):
-                if self.map[row][col] == 1:
-                    pygame.draw.rect(screen, [255, 255, 255],
-                                     [col * self.unit[0], row * self.unit[1], self.unit[0], self.unit[1]])
+    def draw(self, screen, clear=False):
+        if not clear:
+            # 绘制迷宫的地图
+            for row in range(len(self.map)):
+                for col in range(len(self.map[row])):
+                    if self.map[row][col] == 1:
+                        pygame.draw.rect(screen, [255, 255, 255],
+                                         [col * self.unit[0], row * self.unit[1], self.unit[0], self.unit[1]])
 
         # 绘制终点标识（宝物）
         screen.blit(self.treasure, self.end)

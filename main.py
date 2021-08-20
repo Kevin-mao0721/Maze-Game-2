@@ -42,10 +42,10 @@ while True:
                             if event.key == pygame.K_s:
                                 gf.tiao_shi(event, sets, dead, player)
                             if event.key == pygame.K_w:
-                                if not sets.brave:
-                                    sets.brave = True
+                                if not player.brave:
+                                    player.brave = True
                                 else:
-                                    sets.brave = False
+                                    player.brave = False
                         if player.move_time == 2:
                             if event.key == pygame.K_PAGEUP:
                                 gf.pgUp(sets, player)
@@ -74,11 +74,11 @@ while True:
                 gf.draw_all(sets)
 
                 # 无敌时间计时⏲
-                if sets.brave_time == 500:
-                    sets.brave_time = -100000
-                    sets.brave = 1
-                elif sets.brave_time > -52222:
-                    sets.brave_time += 1
+                if player.brave_time == 500:
+                    player.brave_time = -100000
+                    player.brave = 1
+                elif player.brave_time > -52222:
+                    player.brave_time += 1
 
                 # 检查是否到达终点
                 if player.x == 1140 and player.y == 630:
@@ -107,24 +107,38 @@ while True:
                     if sets.maze.treasure_number == 0:
                         player.move_time = 3
                         box.msgbox('获得技能：加速')
+                    elif sets.maze.treasure_number == 1:
+                        player.blood += 2
+                        box.msgbox('获得技能：加血')
                     elif sets.maze.treasure_number == 2:
-                        sets.brave = 0
+                        player.brave = 0
                         box.msgbox('获得技能：天之眷顾')
+                    elif sets.maze.treasure_number == 3:
+                        if box.ynbox('是否需要清空屏幕服务？？？'):
+                            sets.maze_clear = True
+                            box.msgbox('获得技能：清空全幕')
                     elif sets.maze.treasure_number == 5:
                         if sets.level != 6:
-                            sets.level = 6
-                            box.msgbox('获得技能：直到最后一关！')
+                            if sets.xh == '正常':
+                                sets.level = 6
+                                box.msgbox('获得技能：直到最后一关！')
+                            else:
+                                sets.level += 9
+                                box.msgbox('获得技能：直过十关！')
                     elif sets.maze.treasure_number == 6:
                         if sets.level != 6:
                             sets.level += 1
-                            box.msgbox('获得技能：过一关！')
-                    box.msgbox('下一关')
+                            box.msgbox('获得技能：额外过一关！')
+                    if sets.maze.treasure_number not in [5, 6]:
+                        box.msgbox('下一关')
                     sets.level += 1
                     dead.f_set_dead(sets)
                     sets.reset_maze()
                     player.reset(sets)
                     if sets.xh == '无尽':
                         sets.time += 50
+                    if sets.maze.treasure_number != 3:
+                        sets.maze_clear = False
                 if sets.time == 0:
                     gf.check_win_n(sets)
                     sys.exit()

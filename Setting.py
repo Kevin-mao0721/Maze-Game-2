@@ -17,10 +17,9 @@ class Setting:
 
         self.text = pygame.font.SysFont("C:/Windows/Fonts/STZHONGS.TTF", 60)
 
-        self.brave = 1
-        self.brave_time = -100000
         self.step = 0
-        self.time = 70000
+        self.maze_clear = False
+        self.time = 120000
         self.dead_time = 0
         self.level = 1
         self.code = "asdfghjkl;'"
@@ -65,8 +64,11 @@ class Setting:
             dead.reset_wujin(sets)
 
     def draw_maze(self):
-        self.screen.fill([161, 207, 143])
-        self.maze.draw(self.screen)
+        if self.maze_clear:
+            self.screen.fill([255, 255, 255])
+        else:
+            self.screen.fill([161, 207, 143])
+        self.maze.draw(self.screen, self.maze_clear)
 
     def get_mark(self):
         if self.xh == '正常':
