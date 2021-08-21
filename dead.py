@@ -85,4 +85,4 @@ class Dead:
     def reset_wujin(self, sets):
         self.level_set_wujin = []
         self.level_set_wujin.append(int(sets.level * random.uniform(0.5, 1.25)) + 1)
-        self.level_set_wujin.append(int(sets.level / 3) + 1)
+        self.level_set_wujin.append(int(sets.level / 5) + 1)

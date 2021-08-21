@@ -6,7 +6,7 @@ import os
 path = os.path.dirname(os.path.realpath(__file__))
 imgPath = path + '/images/'
 treasure = []
-for i in range(1, 8):
+for i in range(0, 7):
     treasure.append(pygame.image.load(imgPath + str(i) + '.png'))
 
 

@@ -24,9 +24,13 @@ class Setting:
         self.level = 1
         self.code = "asdfghjkl;'"
 
-        box.msgbox('↑↓←→操控\n\n碰到红色块（岩浆）死亡回到起点')
+        box.msgbox('↑↓←→操控\n\n碰到红色块（岩浆）死亡回到起点，每过一关都会获得技能')
 
-        self.xh = box.buttonbox('请选择模式', ['正常', '无尽'])
+        s = """请选择模式：
+    正常：共7关
+    无尽：无限关"""
+
+        self.xh = box.buttonbox(s, ['正常', '无尽'])
         if self.xh is None:
             self.xh = '正常'
         self.ds = box.ynbox('是否开启调试？？？')

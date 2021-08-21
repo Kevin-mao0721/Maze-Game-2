@@ -59,12 +59,9 @@ while True:
                 # 不动时检测岩浆触碰
                 gf.check_dead_dmove(player, sets)
 
+                # 绘制迷宫、方块、岩浆河
                 sets.draw_maze()
-
-                # 绘制方块
                 player.draw(sets)
-
-                # 绘制岩浆河
                 dead.draw_all(sets)
 
                 # 减少时间
@@ -85,24 +82,13 @@ while True:
                     if sets.xh == '正常':
                         if sets.level == 7:
                             if float(sets.best_step_n[1]) <= 7:
-                                box.msgbox('恭喜你突破了最高纪录')
-                                f = open('best_step_n.txt', 'w')
-                                f.write(str(sets.step) + '\n8')
-                                f.close()
-                                sets.get_mark()
+                                gf.win1(sets)
                             elif sets.step < int(sets.best_step_n[0]):
-                                box.msgbox(
-                                    '恭喜你突破了最高纪录' + '\n你的记录:' + str(sets.step) + '\n最高纪录:' + str(sets.best_step_n[0]))
-                                f = open('best_step_n.txt', 'w')
-                                f.write(str(sets.step) + '\n8')
-                                f.close()
-                                sets.get_mark()
+                                gf.win2(sets)
                             elif sets.step > int(sets.best_step_n[0]):
-                                box.msgbox(
-                                    '恭喜你用了' + str(sets.step) + '步来通关\n距离最高纪录还差' + str(
-                                        sets.step - int(sets.best_step_n[0])))
+                                gf.lose(sets)
                             elif sets.step == int(sets.best_step_n[0]):
-                                box.msgbox('恭喜你用了' + str(sets.step) + '\n你再少走一步就可以超过最高记录了')
+                                gf.no_win(sets)
                             sets.reset_all(sets.xh, sets, dead)
                     if sets.maze.treasure_number == 0:
                         player.move_time = 3

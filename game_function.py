@@ -30,7 +30,9 @@ def check_yjh(x, y, screen):
 def dead_action(sets, player, because):
     if player.blood > 1:
         box.msgbox('扣一滴血，继续游戏')
+        print(player.blood)
         player.brave = 0
+        player.blood -= 1
         player.brave_time = -1000
     else:
         box.msgbox(f'你已死亡\n\n原因:{because}')
@@ -226,3 +228,30 @@ def pgUp(sets, player):
 
 def pgDn(sets, player):
     check_right(sets, player, 100)
+
+
+def win1(sets):
+    box.msgbox('恭喜你突破了最高纪录')
+    f = open('best_step_n.txt', 'w')
+    f.write(str(sets.step) + '\n8')
+    f.close()
+    sets.get_mark()
+
+
+def win2(sets):
+    box.msgbox(
+        '恭喜你突破了最高纪录' + '\n你的记录:' + str(sets.step) + '\n最高纪录:' + str(sets.best_step_n[0]))
+    f = open('best_step_n.txt', 'w')
+    f.write(str(sets.step) + '\n8')
+    f.close()
+    sets.get_mark()
+
+
+def lose(sets):
+    box.msgbox(
+        '恭喜你用了' + str(sets.step) + '步来通关\n距离最高纪录还差' + str(
+            sets.step - int(sets.best_step_n[0])))
+
+
+def no_win(sets):
+    box.msgbox('恭喜你用了' + str(sets.step) + '\n你再少走一步就可以超过最高记录了')
