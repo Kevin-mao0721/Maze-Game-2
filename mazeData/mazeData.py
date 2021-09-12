@@ -36,7 +36,7 @@ class Maze:
         # 设置迷宫终点
         self.end = [(2 * self.size[0] + 1 - 1) * self.unit[0], (2 * self.size[1] + 1 - 1 - 1) * self.unit[1]]
         # 宝物图片
-        self.treasure_number = random.randint(0, 6)
+        self.treasure_number = 1  # random.randint(0, 6)
         self.treasure = treasure[self.treasure_number]
 
     # 开拓迷宫

@@ -90,16 +90,16 @@ while True:
                             elif sets.step == int(sets.best_step_n[0]):
                                 gf.no_win(sets)
                             sets.reset_all(sets.xh, sets, dead)
-                    if sets.maze.treasure_number == 0:
-                        player.move_time = 3
+                    if sets.maze.treasure_number == 1:
+                        player.move_time = 2
                         box.msgbox('获得技能：加速')
-                    elif sets.maze.treasure_number == 1:
+                    elif sets.maze.treasure_number == 2:
                         player.blood += 2
                         box.msgbox('获得技能：加血')
-                    elif sets.maze.treasure_number == 2:
+                    elif sets.maze.treasure_number == 6:
                         player.brave = 0
                         box.msgbox('获得技能：天之眷顾')
-                    elif sets.maze.treasure_number == 3:
+                    elif sets.maze.treasure_number == 4:
                         if box.ynbox('是否需要清空屏幕服务？？？'):
                             sets.maze_clear = True
                             box.msgbox('获得技能：清空全幕')
